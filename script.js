@@ -15,7 +15,7 @@ const atualizarTabela = () => {
       <td>${item.nome}</td>
       <td>${item.categoria}</td>
       <td>${item.quantidade}</td>
-      <td>${item.validade}</td>
+      <td>${item.data}</td>
       <td>${item.status}</td>
       <td class="actions">
         <button class="retirar" onclick="retirarItem(${index})">Retirar</button>
@@ -34,7 +34,7 @@ document.getElementById('adicionarBtn').addEventListener('click', () => {
   const nome = document.getElementById('nome').value;
   const categoria = document.getElementById('categoria').value;
   const quantidade = document.getElementById('quantidade').value;
-  const validade = document.getElementById('validade').value;
+  const data = document.getElementById('data').value;
 
   if (!nome || !categoria || !quantidade || !validade) {
     alert('Preencha todos os campos!');
