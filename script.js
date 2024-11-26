@@ -1,10 +1,38 @@
-// Armazenar os itens no LocalStorage
-const getEstoque = () => JSON.parse(localStorage.getItem('estoque')) || [];
-const setEstoque = (estoque) => localStorage.setItem('estoque', JSON.stringify(estoque));
+// Função para adicionar item no estoque
+function adicionarItem() {
+  const nome = document.getElementById('nome').value;
+  const quantidade = document.getElementById('quantidade').value;
+  const data = document.getElementById('data').value; // Alterado de validade para data
 
-// Atualizar tabela do estoque
-const atualizarTabela = () => {
-  const estoque = getEstoque();
+  // Verificando se todos os campos foram preenchidos
+  if (nome && quantidade && data) {
+    const item = {
+      nome: nome,
+      quantidade: quantidade,
+      data: data, // Alterado de validade para data
+      status: 'estocado'
+    };
+
+    // Adicionando o item ao LocalStorage
+    const estoque = JSON.parse(localStorage.getItem('estoque')) || [];
+    estoque.push(item);
+    localStorage.setItem('estoque', JSON.stringify(estoque));
+
+    // Limpando o formulário
+    document.getElementById('nome').value = '';
+    document.getElementById('quantidade').value = '';
+    document.getElementById('data').value = ''; // Alterado de validade para data
+
+    // Atualizando a tabela
+    carregarEstoque();
+  } else {
+    alert('Preencha todos os campos.');
+  }
+}
+
+// Função para carregar o estoque na tabela
+function carregarEstoque() {
+  const estoque = JSON.parse(localStorage.getItem('estoque')) || [];
   const tabela = document.getElementById('estoqueTabela');
   tabela.innerHTML = '';
 
@@ -13,95 +41,51 @@ const atualizarTabela = () => {
 
     row.innerHTML = `
       <td>${item.nome}</td>
-      <td>${item.categoria}</td>
       <td>${item.quantidade}</td>
-      <td>${item.data}</td>
+      <td>${item.data}</td> <!-- Alterado de validade para data -->
       <td>${item.status}</td>
       <td class="actions">
         <button class="retirar" onclick="retirarItem(${index})">Retirar</button>
-        <button class="vencido" onclick="marcarVencido(${index})">Vencido</button>
-        ${item.status === 'vencido' ? `<button class="restaurar" onclick="restaurarItem(${index})">Restaurar</button>` : ''}
+        <button class="vencido" onclick="marcarVencido(${index})">Marcar como Vencido</button>
+        <button class="restaurar" onclick="restaurarItem(${index})">Restaurar</button>
         <button class="deletar" onclick="deletarItem(${index})">Deletar</button>
       </td>
     `;
-
     tabela.appendChild(row);
   });
-};
+}
 
-// Adicionar novo item ao estoque
-document.getElementById('adicionarBtn').addEventListener('click', () => {
-  const nome = document.getElementById('nome').value;
-  const categoria = document.getElementById('categoria').value;
-  const quantidade = document.getElementById('quantidade').value;
-  const data = document.getElementById('data').value;
+// Função para retirar um item do estoque
+function retirarItem(index) {
+  const estoque = JSON.parse(localStorage.getItem('estoque'));
+  estoque[index].status = 'retirado';
+  localStorage.setItem('estoque', JSON.stringify(estoque));
+  carregarEstoque();
+}
 
-  if (!nome || !categoria || !quantidade || !validade) {
-    alert('Preencha todos os campos!');
-    return;
-  }
-
-  const novoItem = {
-    nome,
-    categoria,
-    quantidade: parseInt(quantidade, 10),
-    validade,
-    status: 'estocado',
-  };
-
-  const estoque = getEstoque();
-  estoque.push(novoItem);
-  setEstoque(estoque);
-
-  atualizarTabela();
-
-  // Limpar formulário
-  document.getElementById('nome').value = '';
-  document.getElementById('categoria').value = '';
-  document.getElementById('quantidade').value = '';
-  document.getElementById('validade').value = '';
-});
-
-// Retirar item
-const retirarItem = (index) => {
-  const estoque = getEstoque();
-  if (estoque[index].quantidade > 0) {
-    estoque[index].quantidade -= 1;
-  }
-  setEstoque(estoque);
-  atualizarTabela();
-};
-
-// Marcar item como vencido
-const marcarVencido = (index) => {
-  const estoque = getEstoque();
+// Função para marcar um item como vencido
+function marcarVencido(index) {
+  const estoque = JSON.parse(localStorage.getItem('estoque'));
   estoque[index].status = 'vencido';
-  setEstoque(estoque);
-  atualizarTabela();
-};
+  localStorage.setItem('estoque', JSON.stringify(estoque));
+  carregarEstoque();
+}
 
-// Restaurar item vencido para estocado
-const restaurarItem = (index) => {
-  const estoque = getEstoque();
+// Função para restaurar um item vencido
+function restaurarItem(index) {
+  const estoque = JSON.parse(localStorage.getItem('estoque'));
   estoque[index].status = 'estocado';
-  setEstoque(estoque);
-  atualizarTabela();
-};
+  localStorage.setItem('estoque', JSON.stringify(estoque));
+  carregarEstoque();
+}
 
-// Deletar item
-const deletarItem = (index) => {
-  const estoque = getEstoque();
+// Função para deletar um item do estoque
+function deletarItem(index) {
+  const estoque = JSON.parse(localStorage.getItem('estoque'));
   estoque.splice(index, 1);
-  setEstoque(estoque);
-  atualizarTabela();
-};
+  localStorage.setItem('estoque', JSON.stringify(estoque));
+  carregarEstoque();
+}
 
-// Inicializar tabela ao carregar a página
-atualizarTabela();
-
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').then(() => {
-      console.log('Service Worker registrado com sucesso.');
-    });
-  }
-  
+// Carregar o estoque ao carregar a página
+window.onload = carregarEstoque;
