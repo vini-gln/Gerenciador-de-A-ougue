@@ -1,42 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestão de Estoque - Açougue</title>
-  <link rel="stylesheet" href="style.css"> <!-- Link do CSS -->
+  <title>Gerenciador de Estoque</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <div class="container">
-    <h1>Gestão de Estoque - Açougue</h1>
+    <h1>Gerenciar Estoque de Carnes e Frios</h1>
 
     <div class="form">
-      <h2>Adicionar Item</h2>
-      <input type="text" id="nome" placeholder="Nome" />
-      <input type="text" id="categoria" placeholder="Categoria" />
-      <input type="number" id="quantidade" placeholder="Quantidade" />
-      <input type="date" id="data" />
-      <button id="adicionarBtn">Adicionar</button>
+      <h2>Adicionar Novo Item</h2>
+      <input type="text" id="nome" placeholder="Nome do Produto">
+      <input type="number" id="quantidade" placeholder="Quantidade">
+      <input type="date" id="data"> <!-- Alterado de validade para data -->
+      <button onclick="adicionarItem()">Adicionar</button>
     </div>
 
     <h2>Estoque Atual</h2>
-    <table>
+    <table id="estoqueTabela">
       <thead>
         <tr>
           <th>Nome</th>
-          <th>Categoria</th>
           <th>Quantidade</th>
-          <th>Data</th>
+          <th>Data</th> <!-- Alterado de validade para data -->
           <th>Status</th>
           <th>Ações</th>
         </tr>
       </thead>
-      <tbody id="estoqueTabela">
-        <!-- Os itens do estoque serão exibidos aqui -->
+      <tbody>
+        <!-- Itens do estoque serão inseridos aqui -->
       </tbody>
     </table>
   </div>
 
-  <script src="script.js"></script> <!-- Link do JavaScript -->
+  <script src="script.js"></script>
 </body>
 </html>
