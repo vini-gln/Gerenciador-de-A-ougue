@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Estoque - Açougue</title>
+  <link rel="stylesheet" href="style.css"> <!-- Link do CSS -->
+</head>
+<body>
+  <div class="container">
+    <h1>Gestão de Estoque - Açougue</h1>
+
+    <div class="form">
+      <h2>Adicionar Item</h2>
+      <input type="text" id="nome" placeholder="Nome" />
+      <input type="text" id="categoria" placeholder="Categoria" />
+      <input type="number" id="quantidade" placeholder="Quantidade" />
+      <input type="date" id="validade" />
+      <button id="adicionarBtn">Adicionar</button>
+    </div>
+
+    <h2>Estoque Atual</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Categoria</th>
+          <th>Quantidade</th>
+          <th>Validade</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="estoqueTabela">
+        <!-- Os itens do estoque serão exibidos aqui -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script> <!-- Link do JavaScript -->
+</body>
+</html>
