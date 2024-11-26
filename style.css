@@ -93,7 +93,7 @@ table tbody tr:nth-child(even) {
 /* Ações */
 .actions button {
   padding: 5px 10px;
-  margin-right: 5px;
+  margin-left: 5px;
   border: none;
   border-radius: 3px;
   cursor: pointer;
