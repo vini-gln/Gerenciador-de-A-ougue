@@ -1,14 +1,16 @@
 // Função para adicionar item no estoque
 function adicionarItem() {
   const nome = document.getElementById('nome').value;
+  const categoria = document.getElementById('categoria').value;
   const quantidade = document.getElementById('quantidade').value;
   const data = document.getElementById('data').value; // Alterado de validade para data
 
   // Verificando se todos os campos foram preenchidos
-  if (nome && quantidade && data) {
+  if (nome && categoria && quantidade && data) {
     const item = {
       nome: nome,
       quantidade: quantidade,
+      categoria: categoria,
       data: data, // Alterado de validade para data
       status: 'estocado'
     };
@@ -20,6 +22,7 @@ function adicionarItem() {
 
     // Limpando o formulário
     document.getElementById('nome').value = '';
+    document.getElementById('categoria').value = '';
     document.getElementById('quantidade').value = '';
     document.getElementById('data').value = ''; // Alterado de validade para data
 
@@ -41,6 +44,7 @@ function carregarEstoque() {
 
     row.innerHTML = `
       <td>${item.nome}</td>
+      <td>${item.categoria}</td>
       <td>${item.quantidade}</td>
       <td>${item.data}</td> <!-- Alterado de validade para data -->
       <td>${item.status}</td>
